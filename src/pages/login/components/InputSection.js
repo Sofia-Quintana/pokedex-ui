@@ -1,6 +1,6 @@
 import React,  { useEffect, useState } from 'react';
 import CustomComboBox from '../../utils/containers/CustomComboBox';
-import { ErrorLabel, Input, InputLabelWrap, Label, NestedContainer } from '../components/styles/Form.styles';
+import { ErrorLabel, Input, InputLabelWrap, Label, NestedContainer } from './styles/Form.styles';
 import { ItemLabel } from '../../utils/components/styles/CustomComboBox.style';
 
 const InputSection = (props) => {
@@ -77,6 +77,15 @@ const InputSection = (props) => {
                     type='number' 
                     placeholder='Select your age' 
                     value={props.age}
+                />
+            </InputLabelWrap>
+            <InputLabelWrap>
+            <Label>PASSWORD*</Label>
+                <Input 
+                    onChange={props.onPasswordChange} 
+                    type='password' 
+                    placeholder='Type your password' 
+                    value={props.password}
                 />
             </InputLabelWrap>
             <InputLabelWrap>

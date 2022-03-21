@@ -21,6 +21,7 @@ const Form = (props) => {
             onNicknameChange,
             onEmailChange,
             onAgeChange,
+            onPasswordChange,
             formValues,
         } = useForm();
 
@@ -47,6 +48,8 @@ const Form = (props) => {
                     validEmail={formValues.validEmail}
                     age={formValues.age}
                     onAgeChange={onAgeChange}
+                    password={formValues.password}
+                    onPasswordChange={onPasswordChange}
                     region={formValues.region}
                     setSelectedRegion={setSelectedRegion}
                     isSelectedRegion={formValues.isSelectedRegion}

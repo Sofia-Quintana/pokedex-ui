@@ -22,6 +22,7 @@ const useForm = () => {
         age: 0,
         email: '',
         validEmail: undefined,
+        password: '',
         class: '- SELECT CLASS -',
         isSelectedClass: undefined,
     };
@@ -106,6 +107,15 @@ const useForm = () => {
         } 
     };
 
+    const onPasswordChange = (e) => {
+        setFormValues( (previousFormValue) => {
+            return {
+                ...previousFormValue,
+                password: e.target.value,
+            }
+        });
+    };
+
     const validate = () => {
         const { validFullName, validNickname, validEmail, isSelectedRegion, isSelectedGender, isSelectedClass } = formValues;
         validateInvalidSubmit({
@@ -144,6 +154,7 @@ const useForm = () => {
         onNicknameChange,
         onEmailChange,
         onAgeChange,
+        onPasswordChange,
         validate,
         formValues,
     };
