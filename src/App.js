@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Redirect, Route } from 'react-router-dom';
 import Home from './pages/home/containers/Home';
 import Form from './pages/login/containers/Form';
+import SigninForm from './pages/sign-in/containers/SigninForm';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/sign-up' element={<Form/>}/>
+        <Route path='/sign-in' element={<SigninForm/>}/>
       </Routes>
     </Router>
   );
