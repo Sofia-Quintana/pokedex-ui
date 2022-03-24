@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import useForm from '../../../hooks/useForm';
 import InputSection from '../components/InputSection';
 import { ButtonsContainer, FormContainer, Paragraph, ResetButton, SubmitButton, Title } from '../components/styles/Form.styles';
@@ -22,11 +23,30 @@ const Form = (props) => {
             onEmailChange,
             onAgeChange,
             onPasswordChange,
+            validate,
             formValues,
         } = useForm();
 
-    const submit = async (e) => {
-        // e.preventDefault();
+    const [submitted, setSubmitted] = useState('');
+
+    const submit = (e) => {
+        e.preventDefault();
+        if(validate()) {
+            const { fullName, nickname, region, gender, age, email, password, class_ } = formValues;
+            const body = {
+                nickname: nickname,
+                email: email,
+                password: password,
+                fullname: fullName,
+                region: region,
+                gender: gender,
+                class: class_,
+                age: age,
+                isLogged: false
+            };
+            axios.post('http://localhost:8080/user/', body)
+                .then((response) => { setSubmitted(response.data.message)});
+        }
     };
 
     
@@ -56,7 +76,7 @@ const Form = (props) => {
                     gender={formValues.gender}
                     setSelectedGender={setSelectedGender}
                     isSelectedGender={formValues.isSelectedGender}
-                    class={formValues.class}
+                    class={formValues.class_}
                     setSelectedClass={setSelectedClass}
                     isSelectedClass={formValues.isSelectedClass}
                 />
@@ -64,6 +84,9 @@ const Form = (props) => {
                     <ResetButton type='button' onClick={resetForm}>RESET</ResetButton>
                     <SubmitButton type='submit' onClick={submit}>SUBMIT</SubmitButton>
                 </ButtonsContainer>
+                {
+                    submitted.length > 0 ? <Paragraph>{submitted}</Paragraph> : null
+                }
             </form>
         </FormContainer>
     );

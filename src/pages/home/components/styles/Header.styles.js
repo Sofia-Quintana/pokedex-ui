@@ -45,3 +45,20 @@ export const Paragraph = styled.p`
         margin: 0;
     }    
 `;
+
+export const UserContainer = styled.div`
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: right;
+`;
+
+export const UserButton = styled.button`
+    width: 5%;
+    border-radius: 30px;
+    border: none;
+`;
+
+export const ProfileImage = styled.img`
+    width: 100%;
+`;
