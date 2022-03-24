@@ -9,6 +9,7 @@ import { ButtonContainer, CardContainer } from "../components/styles/Body.styles
 export const Home = () => {
     const [ pokemons, setPokemons ] = useState([]);
     const [ offset, setOffset ] = useState(0);
+    const [ user, setUser ] = useState([]);
 
     const getPokemons = async (number = 100, offset) => {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${number}&offset=${offset}`);
@@ -37,13 +38,26 @@ export const Home = () => {
         return pokemonList;
     };
 
+    const getUserData =  async() => {
+        const value = localStorage.getItem('nickname');
+        if(value.length > 0) {
+            const request = await axios.get(`http://localhost:8080/user/${value}`);
+            return request.data;
+        }
+    }
+ 
     useEffect( () =>  {
+        getUserData().then((value) => setUser(value));
+        // getUserData().then((value) => console.log(value));
         getPokemons(100,offset).then((value) => setPokemons(value));
+
     }, [offset]);
 
     return(
         <Container>
-            <Header />
+            {
+                user.length !== 0 ? <Header user={user}/> : <Header />
+            }          
             <CardContainer>
                 {
                     pokemons.length !== 0 ? 

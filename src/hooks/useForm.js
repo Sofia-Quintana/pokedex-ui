@@ -23,7 +23,7 @@ const useForm = () => {
         email: '',
         validEmail: undefined,
         password: '',
-        class: '- SELECT CLASS -',
+        class_: '- SELECT CLASS -',
         isSelectedClass: undefined,
     };
 
@@ -54,7 +54,7 @@ const useForm = () => {
         setFormValues( (previousFormValue) => {
             return {
                 ...previousFormValue,
-                class: e.target.innerText,
+                class_: e.target.innerText,
                 isSelectedClass: true,
             };
         });

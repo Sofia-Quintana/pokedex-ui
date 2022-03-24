@@ -1,27 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, DataContainer, PictureContainer, PokemonContainer, ProfilePicture } from "../components/styles/Profile.styles";
+import Show from '../../../assets/show.svg';
+import Battle from '../../../assets/battle.svg';
+import Header from "../../home/components/Header";
+import axios from "axios";
 
 const Profile = (props) => {
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [ user, setUser ] = useState([]);
+
+    const getUserData =  async() => {
+        const value = localStorage.getItem('nickname');
+        if(value.length > 0) {
+            const request = await axios.get(`http://localhost:8080/user/${value}`);
+            return request.data;
+        }
+    }
+
+    useEffect( () => {
+        getUserData().then((value) => setUser(value));
+    }, []);
     
-    if(isLoaded) {
+    if(user.length !== 0) {
         return(
             <Container>
+                <Header user={user}/>
                 <PokemonContainer>
 
                 </PokemonContainer>
                 <DataContainer>
                     <PictureContainer>
-                        <ProfilePicture src='../../../assets/show.svg'/>
+                        {user.class === 'show' ? <ProfilePicture src={Show}/> : <ProfilePicture src={Battle}/>
+                        }
                     </PictureContainer>
-
+                    {/* <InputSection>
+                    </InputSection> */}
                 </DataContainer>
             </Container>
         );
     } else {
-        <Container>
-            <p>LOADING...</p>
-        </Container>
+        return(
+            <Container>
+                <Header />
+            </Container>
+        );
     }
 };
 
